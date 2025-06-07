@@ -4966,7 +4966,8 @@ int dsi_panel_set_nolp(struct dsi_panel *panel)
 		goto exit;
 
 	if (panel->mi_cfg.panel_state == PANEL_STATE_ON) {
-		if (mi_get_panel_id(panel->mi_cfg.mi_panel_id) == N16_PANEL_PB ||
+		if (mi_get_panel_id(panel->mi_cfg.mi_panel_id) == N16_PANEL_PC ||
+			mi_get_panel_id(panel->mi_cfg.mi_panel_id) == N16_PANEL_PB ||
 			mi_get_panel_id(panel->mi_cfg.mi_panel_id) == N16_PANEL_PA)
 			dsi_panel_update_backlight(panel, 0);
 		DSI_INFO("panel already PANEL_STATE_ON, skip nolp\n");
@@ -4988,7 +4989,8 @@ int dsi_panel_set_nolp(struct dsi_panel *panel)
 		mi_get_panel_id(panel->mi_cfg.mi_panel_id) == M16T_PANEL_PA ||
 		mi_get_panel_id(panel->mi_cfg.mi_panel_id) == M16T_PANEL_PB ||
 		mi_get_panel_id(panel->mi_cfg.mi_panel_id) == N16_PANEL_PA ||
-		mi_get_panel_id(panel->mi_cfg.mi_panel_id) == N16_PANEL_PB) {
+		mi_get_panel_id(panel->mi_cfg.mi_panel_id) == N16_PANEL_PB ||
+		mi_get_panel_id(panel->mi_cfg.mi_panel_id) == N16_PANEL_PC) {
 		switch (panel->mi_cfg.doze_brightness) {
 			case DOZE_BRIGHTNESS_HBM:
 				DISP_INFO("enter DOZE HBM NOLP\n");
@@ -5334,7 +5336,8 @@ int dsi_panel_gamma_switch_locked(struct dsi_panel *panel)
 
 		if (panel->cur_mode->timing.refresh_rate != 30){
 			if((mi_get_panel_id_by_dsi_panel(panel) == N16_PANEL_PA ||
-				mi_get_panel_id_by_dsi_panel(panel) == N16_PANEL_PB) &&
+				mi_get_panel_id_by_dsi_panel(panel) == N16_PANEL_PB ||
+				mi_get_panel_id_by_dsi_panel(panel) == N16_PANEL_PC) &&
 				panel->mi_cfg.last_refresh_rate == 30){
 				DISP_TIME_INFO("%s panel: do not need to switch fps gamma\n",panel->type);
 			} else {
@@ -5643,7 +5646,8 @@ error:
 	if (mi_get_panel_id_by_dsi_panel(panel) == M16T_PANEL_PA ||
             	mi_get_panel_id_by_dsi_panel(panel) == M16T_PANEL_PB || 
             	mi_get_panel_id_by_dsi_panel(panel) == N16_PANEL_PA ||
-            	mi_get_panel_id_by_dsi_panel(panel) == N16_PANEL_PB) {
+				mi_get_panel_id_by_dsi_panel(panel) == N16_PANEL_PB ||
+            	mi_get_panel_id_by_dsi_panel(panel) == N16_PANEL_PC) {
 		rc = dsi_panel_gamma_switch_locked(panel);
 	}
 	mutex_unlock(&panel->panel_lock);

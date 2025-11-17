@@ -19516,7 +19516,8 @@ static void wlan_hdd_update_iface_combination(struct hdd_context *hdd_ctx,
 
 	for (i = 0; i < num; i++) {
 		/* Filter for non-DBS targets */
-		if (!ucfg_policy_mgr_is_fw_supports_dbs(psoc) &&
+		if (!sta_sap_p2p_concurrency &&
+		    !ucfg_policy_mgr_is_fw_supports_dbs(psoc) &&
 		    wlan_hdd_iface_combination[i].max_interfaces > 2)
 			continue;
 
